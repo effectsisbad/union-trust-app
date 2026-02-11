@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Capital One</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            padding-top: env(safe-area-inset-top); 
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 0 0px; /* Minimal padding to remove gap */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-logo {
+            width: 120px; /* Set to requested size */
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .content {
+            padding: 0px 16px 100px; /* No top padding to close the gap */
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- ACCOUNT CARDS --- */
+        .card-blue {
+            background-color: #003865;
+            color: white;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 4px; /* Tiny spacing between logo and cards */
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0,56,101,0.12);
+        }
+
+        .card-smaller {
+            padding: 10px 18px; 
+        }
+        .card-smaller .balance { font-size: 22px; }
+        .card-smaller .account-name { font-size: 14px; }
+
+        .card-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .account-info { display: flex; align-items: baseline; }
+        .account-name { font-weight: 700; font-size: 15px; }
+        .account-num { font-weight: 400; opacity: 0.7; font-size: 12px; margin-left: 4px; }
+        .balance-container { text-align: right; }
+        .balance { font-size: 26px; font-weight: 500; letter-spacing: -0.5px; }
+        .balance-label { font-size: 11px; opacity: 0.8; }
+
+        .debit-btn {
+            margin-top: 10px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.8);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* --- SHARED WHITE CARD --- */
+        .card-white {
+            background-color: white;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .add-account {
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+        }
+        .add-icon { font-size: 20px; margin-right: 12px; color: #111; }
+        .add-text { font-weight: 700; font-size: 15px; }
+
+        /* --- CREDITWISE SECTION --- */
+        .cw-padding { padding: 18px 20px; }
+        .cw-header { display: flex; align-items: center; gap: 2px; margin-bottom: 2px; }
+        .cw-img-logo { height: 30px; width: auto; }
+        .cw-title { font-weight: 700; color: #003865; font-size: 18px; }
+        .cw-fico-label { font-size: 11px; color: #6e6e6e; font-weight: 400; margin-bottom: 10px; }
+        
+        .cw-score-row { display: flex; align-items: center; margin-bottom: 10px; }
+        .cw-score { font-size: 38px; font-weight: 300; margin-right: 15px; }
+        .cw-status strong { display: block; font-size: 14px; }
+        .date { font-size: 12px; color: #b33e36; font-weight: 500; margin-top: 2px; }
+
+        .cw-bar-bg { height: 5px; background: #eee; border-radius: 3px; margin: 10px 0 5px; }
+        .cw-bar-fill { height: 100%; background: #fdb913; width: 89%; border-radius: 3px; }
+        .cw-scale { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 10px; }
+
+        /* --- OFFERS --- */
+        .h-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-right: -16px; padding-right: 16px; scrollbar-width: none; }
+        .offer-card { min-width: 140px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px; flex-shrink: 0; height: 130px; }
+        .offer-val { font-size: 15px; font-weight: 700; margin-top: 20px; }
+        .view-all-btn { display: block; width: 100%; padding: 12px; text-align: center; border: 1px solid #005a8d; border-radius: 8px; color: #005a8d; font-weight: 600; margin-top: 10px; background: white; }
+        /* --- PROMO CARD --- */
+        .promo-img { width: 100%; height: 160px; object-fit: cover; display: block; }
+        .promo-content { padding: 16px 20px 24px; }
+        .promo-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #111; }
+        .promo-text { font-size: 15px; line-height: 1.4; color: #333; margin-bottom: 24px; }
+        .promo-actions { display: flex; align-items: center; gap: 20px; }
+        .btn-primary { border: 1px solid #005a8d; color: #005a8d; padding: 10px 24px; border-radius: 6px; font-weight: 600; text-decoration: none; }
+        .btn-text { color: #005a8d; font-weight: 600; text-decoration: none; }
+
+        /* --- MAP SECTION (Smaller) --- */
+        .map-box {
+            height: 130px; /* Tightened height */
+            background: #e0e0e0;
+            margin: 0 -20px -20px;
+            overflow: hidden;
+        }
+        .map-img { width: 100%; height: 100%; object-fit:cover; }
+        .chip-container { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 10px; scrollbar-width: none; }
+        .chip { border: 1px solid #ccc; border-radius: 20px; padding: 4px 10px; font-size: 11px; white-space: nowrap; color: #444; }
+
+        /* --- BOTTOM NAV --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
+            z-index: 200;
+        }
+        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #666; font-size: 10px; width: 20%; }
+        .nav-item.active { color: #004d85; }
+        .nav-item i { font-size: 20px; margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://download.logo.wine/logo/Capital_One/Capital_One-Logo.wine.png" alt="Capital One" class="header-logo">
+    </header>
+
+    <div class="content">
+
+        <div class="card-blue card-smaller">
+            <div class="card-row">
+                <div class="account-info">
+                    <span class="account-name">360 Checking</span>
+                    <span class="account-num">...4567</span>
+                </div>
+                <div class="balance-container">
+                    <div class="balance">$2,451.75</div>
+                    <div class="balance-label">Available balance</div>
+                </div>
+            </div>
+            <a href="#" class="debit-btn">View your debit card</a>
+        </div>
+
+        <div class="card-blue">
+            <div class="card-row">
+                <div class="account-info"><span class="account-name">balzak</span><span class="account-num">...3456</span></div>
+                <div class="balance-container"><div class="balance">$854.31</div><div class="balance-label">Available balance</div></div>
+            </div>
+        </div>
+        <div class="card-blue">
+            <div class="card-row">
+                <div class="account-info"><span class="account-name">Carlos</span><span class="account-num">...9864</span></div>
+                <div class="balance-container"><div class="balance">$2,854.31</div><div class="balance-label">Available balance</div></div>
+            </div>
+        </div>
+
+        <div class="card-blue">
+            <div class="card-row">
+                <div class="account-info"><span class="account-name">Abel</span><span class="account-num">...9029</span></div>
+                <div class="balance-container"><div class="balance">$482,578.76</div><div class="balance-label">Available balance</div></div>
+            </div>
+        </div>
+
+        <div class="add-account">
+            <i class="far fa-plus-square add-icon"></i>
+            <span class="add-text">Open a new account</span>
+        </div>
+
+        <div class="card-white">
+            <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Car" class="promo-img">
+            <div class="promo-content">
+                <h3 class="promo-title">Easier car buying</h3>
+                <p class="promo-text">90% of people who pre-qualify for auto financing get approved.</p>
+                <div class="promo-actions">
+                    <a href="#" class="btn-primary">Pre-qualify now</a>
+                    <a href="#" class="btn-text">Later</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-white cw-padding">
+            <div class="cw-header">
+                <img src="https://cdn.discordapp.com/attachments/966533959410405391/1469760819263701166/image.png?ex=6988d4ee&is=6987836e&hm=83bbe226251b5750b0e4b466d86f7cd2d1828e3febf89041da1ab71097e78a10&" class="cw-img-logo" alt="CW">
+                <span class="cw-title">creditwise</span>
+            </div>
+            <div class="cw-fico-label"></div>
+            <div class="cw-fico-label">Your FICO® Score</div>
+
+            <div class="cw-score-row">
+                <div class="cw-score">810</div>
+                <div class="cw-status">
+                    <strong>New update available</strong>
+                    <div class="date">Updated on: Feb 2nd, 2026</div>
+                </div>
+            </div>
+            <div class="cw-bar-bg"><div class="cw-bar-fill"></div></div>
+            <div class="cw-scale"><span>300</span><span>850</span></div>
+        </div>
+
+        <div class="card-white cw-padding">
+            <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                <strong style="font-size:17px;">Activate shopping offers</strong>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="h-scroll">
+                <div class="offer-card"><div class="offer-val">4% back</div><div style="font-size:12px;">Vrbo</div></div>
+                <div class="offer-card"><div class="offer-val">27% back</div><div style="font-size:12px;">kate spade</div></div>
+                <div class="offer-card"><div class="offer-val">3% back</div><div style="font-size:12px;">Expedia</div></div>
+            </div>
+            <button class="view-all-btn">View all offers</button>
+        </div>
+
+        <div class="card-white cw-padding" style="padding-bottom: 0;">
+            <h3 style="font-size:16px; margin-bottom:10px;">Explore locations near you</h3>
+            <div class="chip-container">
+                <div class="chip">Deposit or add cash</div>
+                <div class="chip">Get cash</div>
+            </div>
+            <div class="map-box">
+                <img src="https://media.discordapp.net/attachments/966533959410405391/1469759897431310582/image.png?ex=6988d412&is=69878292&hm=b8f7b7e21b6490ac931b0e4549084bd401f9eafc5a312ef86d47f91f884259fa&animated=true" class="map-img" alt="Map">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-money-bill-transfer"></i><span>Pay/Move</span></a>
+        <a href="#" class="nav-item"><i class="far fa-comment-dots"></i><span>Help</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-tag"></i><span>Offers</span></a>
+        <a href="#" class="nav-item"><i class="far fa-user"></i><span>Profile</span></a>
+    </div>
+
+</body>
+</html>
